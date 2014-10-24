@@ -1,0 +1,50 @@
+vlog -work work duts/loop_test.v
+vlog -work work duts/basic_gates_check.v
+vlog -work work duts/add1.v
+vlog -work work duts/add4.v
+vlog -work work duts/add_zero_delay.v
+vlog -work work duts/loop_test2.v
+
+vlog -work work common_defines.v
+vlog -work work compilation_flags.v
+
+vlog -work work rtl_lib/sp_ram.v
+vlog -work work rtl_lib/dp_ram.v
+vlog -work work rtl_lib/dp_ram_duo.v
+vlog -work work rtl_lib/fifo.v
+vlog -work work rtl_lib/reg_fifo.v
+vlog +incdir+.+rtl_lib -work work rtl_lib/comperator_2.v
+vlog +incdir+.+rtl_lib -work work rtl_lib/comperator_3.v
+
+vlog -work work turbosim.v
+vlog -work work sim_project.v
+
+vlog +incdir+.+rtl_lib -work work eq/Queue.v
+vlog +incdir+.+eq+rtl_lib -work work eq/Event_Queue_8.v
+vlog +incdir+.+rtl_lib -work work ctu/ctu_set.v
+
+vlog +incdir+.+eq+rtl_lib -work work eq/EQ_wrap.v
+
+vsim       work.sim_project
+
+noview wave*
+
+set LOG_ALL 0
+
+if {$LOG_ALL==1} {
+	do sim_project_wave.do
+	log -r /*
+} else {
+	do log_stat.do
+	log total_stalls \
+	pure_solve_time \
+	eq_sum_of_elements \
+	ctu_sum_of_elements \
+	av_eq_elem_num \
+	av_ctu_elem_num \
+	utilization_per \
+	cycles_per_event \
+	i 	
+}
+
+run 100us

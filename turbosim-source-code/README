@@ -1,0 +1,23 @@
+Short description:
+
+Turbosim takes a model to simulate in a compiled form loaded into it's
+internal RAMs. Then a set of events (stimuli) are loaded into
+turbosim that forces the simulated design. 
+When Turbosim is signaled to start working it applies all input 
+events to the simulated model. Every calculated event will be 
+spit out from trubosim and collected by the test bench.
+
+IMPORTANT FILES:
+sim_project.v : The top file it implement the test bench and instantiate the 
+	      	turbosim module
+
+turbosim.v : The simulator itself
+
+in order to run the project using Modelsim, one should
+run ModelSim cd into project's dir and type in its terminal:
+> vlib work
+> do run_sim_project
+
+In any other simulator one should compile all verilog source files in 
+all dirs then run the simulation when top file is sim_project.v.
+As reference use run_sim_project file.
